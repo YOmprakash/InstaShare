@@ -1,0 +1,25 @@
+.storyImg {
+  height: 78px;
+  width: 78px;
+  left: 204px;
+  top: 345px;
+  border-radius: 50%;
+}
+.story_container {
+  padding-left: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+}
+.failure-view-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}

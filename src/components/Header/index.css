@@ -1,0 +1,132 @@
+.nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.desktop-container {
+  margin: 0 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  width: 55px;
+  height: 28px;
+}
+
+.header-logo-container span {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  padding-left: 10px;
+}
+
+.search-container {
+  border: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  height: 28px;
+  padding: 0px 10px;
+}
+.search-container input {
+  border: none;
+  outline: none;
+  color: #dbdbdb;
+  text-decoration: none;
+}
+.search-icon {
+  width: 10px;
+  background-color: #dbdbdb;
+}
+.header-button {
+  width: 86px;
+  height: 32px;
+  border-radius: 4px;
+  background: #4094ef;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+}
+.menu-icon {
+  cursor: pointer;
+  display: none;
+  color: #222222;
+  background-color: #fff;
+}
+
+.desktop-ul-container {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.desktop-ul-container li {
+  cursor: pointer;
+  color: #222222;
+  font-weight: bold;
+}
+.nav-link {
+  text-decoration: none;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  color: #262626;
+
+  text-align: left;
+}
+
+.desktop-ul-container li:hover {
+  color: #8254e5;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .menu-icon:hover {
+    color: #147efb;
+    transition: all 0.3s;
+  }
+  .desktop-ul-container {
+    flex-direction: row;
+    position: absolute;
+    text-align: center;
+    top: 90px;
+    width: 80%;
+    background-color: #ffffff;
+    padding: 30px;
+    transform: translateY(-100%); /* Move the menu off-screen */
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hide the menu items on mobile */
+  }
+
+  .desktop-ul-container.open {
+    display: flex; /* Show the menu items when the menu is open */
+    transform: translateY(0); /* Move the menu on-screen */
+  }
+
+  .desktop-ul-container li {
+    text-align: center;
+
+    margin-bottom: 10px; /* Add margin-bottom to create space between list items */
+  }
+}
