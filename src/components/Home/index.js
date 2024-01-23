@@ -44,6 +44,7 @@ const Home = () => {
 
       if (response.ok) {
         const data = await response.json()
+        console.log(data)
         setPosts(data.posts)
         setIsLoading(false)
         setApiStatus(apiStatusConstants.success)
