@@ -1,7 +1,8 @@
 // Header.js
 import {useState} from 'react'
-import {IconMenu2, IconX} from '@tabler/icons-react'
 import {FaSearch} from 'react-icons/fa'
+import {IoClose} from 'react-icons/io5'
+import {IoMdMenu} from 'react-icons/io'
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import image from '../Images/image1.jpg'
@@ -25,16 +26,16 @@ const Header = ({onSearchInputChange, props}) => {
       <div className="desktop-container">
         <div className="header-logo-container">
           <Link to="/" className="nav-link">
-            <img src={image} alt="logo" className="logo" />
-            <span>Insta Share</span>
+            <img src={image} alt="website logo" className="logo" />
+            <h1>Insta Share</h1>
           </Link>
         </div>
 
         <button type="button" className="menu-icon" onClick={toggleHamburger}>
           {menuOpen ? (
-            <IconX size={32} className="icon-x" />
+            <IoClose size={32} className="icon-x" />
           ) : (
-            <IconMenu2 size={32} className="menu-icon" />
+            <IoMdMenu size={32} className="menu-icon" />
           )}
         </button>
         <ul className={`desktop-ul-container ${menuOpen ? 'open' : ''}`}>
@@ -45,7 +46,7 @@ const Header = ({onSearchInputChange, props}) => {
                 placeholder="search caption"
                 onChange={e => onSearchInputChange(e.target.value)}
               />
-              <button type="button" aria-label="icons" data-testid="icon">
+              <button type="button" aria-label="icons" data-testid="searchIcon">
                 <FaSearch />
               </button>
             </div>

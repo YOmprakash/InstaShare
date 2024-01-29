@@ -56,7 +56,7 @@ const MyProfile = () => {
             className="profile-pic"
           />
           <div className="info">
-            <p>{myProfile.user_name}</p>
+            <h1>{myProfile.user_name}</h1>
             <div className="follower-card">
               <p>{myProfile.posts_count} Posts</p>
               <p>{myProfile.followers_count} Followers</p>
