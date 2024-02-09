@@ -1,7 +1,9 @@
 import {useState} from 'react'
 
-import {useHistory} from 'react-router-dom'
+import {useHistory, Redirect} from 'react-router-dom'
+
 import Cookies from 'js-cookie'
+
 import './index.css'
 
 import image from '../Images/image1.jpg'
@@ -42,6 +44,10 @@ const Login = () => {
 
   const onchangePassword = e => {
     setPassword(e.target.value)
+  }
+  const jwtToken = Cookies.get('jwt_token')
+  if (jwtToken !== undefined) {
+    return <Redirect to="/" />
   }
 
   return (

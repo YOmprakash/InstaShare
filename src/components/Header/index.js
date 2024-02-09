@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 import image from '../Images/image1.jpg'
 import './index.css'
 
-const Header = ({onSearchInputChange, props}) => {
+const Header = ({onSearchInputChange, history}) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false) // new state variable
 
@@ -19,7 +19,6 @@ const Header = ({onSearchInputChange, props}) => {
     setSearchOpen(!searchOpen)
   }
   const onClickLogout = () => {
-    const {history} = props
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
