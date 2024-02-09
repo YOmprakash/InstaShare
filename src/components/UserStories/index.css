@@ -23,3 +23,6 @@
   flex-direction: column;
   height: auto;
 }
+.user_stories_container {
+  margin-top: 130px;
+}
