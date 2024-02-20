@@ -1,28 +1,43 @@
-.storyImg {
-  height: 78px;
-  width: 78px;
-  left: 204px;
-  top: 345px;
-  border-radius: 50%;
+.slick-prev:before,
+.slick-next:before {
+  color: black;
 }
-.story_container {
-  padding-left: 0;
 
+.main-container {
   display: flex;
-
   flex-direction: column;
-
-  align-items: center;
-
   justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 }
+.slick-container {
+  width: 80%;
+  max-width: 1000px;
+  margin: 10px 0px;
+}
+@media screen and (max-width: 768px) {
+  .slick-container {
+    width: 100%;
+  }
+}
+.storyImg {
+  margin: 0px 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+@media screen and (min-width: 768px) {
+  .storyImg {
+    height: 80px;
+    width: 80px;
+    border-radius: 55px;
+  }
+}
+
 .failure-view-container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: auto;
-}
-.user_stories_container {
-  margin-top: 130px;
 }

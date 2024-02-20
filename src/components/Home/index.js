@@ -1,17 +1,14 @@
-// Home.js
+// home
 import {useState, useEffect} from 'react'
 import {Link, Redirect} from 'react-router-dom'
-
 import {BsHeart} from 'react-icons/bs'
 import {FcLike} from 'react-icons/fc'
 import {FaRegComment} from 'react-icons/fa'
-
 import {BiShareAlt} from 'react-icons/bi'
 import Cookies from 'js-cookie'
 import Loader from '../Loader'
 import Header from '../Header'
 import UserStories from '../UserStories'
-
 import './index.css'
 
 const apiStatusConstants = {
@@ -24,7 +21,6 @@ const apiStatusConstants = {
 const Home = () => {
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [searchInput, setSearchInput] = useState('')
   const [likedPosts, setLikedPosts] = useState({})
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
 
@@ -38,9 +34,7 @@ const Home = () => {
         },
         method: 'GET',
       }
-      const apiUrl = searchInput
-        ? `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
-        : 'https://apis.ccbp.in/insta-share/posts'
+      const apiUrl = 'https://apis.ccbp.in/insta-share/posts'
       const response = await fetch(apiUrl, options)
 
       if (response.ok) {
@@ -59,10 +53,10 @@ const Home = () => {
       setApiStatus(apiStatusConstants.failure)
     }
   }
-
   useEffect(() => {
     fetchPosts()
   }, [])
+
   const handleLikeClick = async postId => {
     try {
       const jwtToken = Cookies.get('jwt_token')
@@ -72,19 +66,35 @@ const Home = () => {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify({like_status: !likedPosts[postId]}),
+        body: JSON.stringify({like_status: !likedPosts[postId]}), // Toggle like status
       }
 
       const response = await fetch(
         `https://apis.ccbp.in/insta-share/posts/${postId}/like`,
         options,
       )
+      console.log(response)
 
       if (response.ok) {
+        // Update likedPosts state based on postId
         setLikedPosts(prevLikedPosts => ({
           ...prevLikedPosts,
           [postId]: !prevLikedPosts[postId],
         }))
+        setPosts(prevPosts =>
+          prevPosts.map(post =>
+            post.post_id === postId
+              ? {
+                  ...post,
+                  likes_count: likedPosts[postId]
+                    ? post.likes_count - 1
+                    : post.likes_count + 1,
+                }
+              : post,
+          ),
+        )
+
+        // Update the likes count
       } else {
         console.error('Failed to update like status')
       }
@@ -92,6 +102,7 @@ const Home = () => {
       console.error('Error updating like status:', error)
     }
   }
+
   const renderHomeContent = () => (
     <div className="home-container">
       {isLoading ? (
@@ -100,7 +111,7 @@ const Home = () => {
         <div className="home-card-container">
           <ul className="post-ul-container">
             {posts.map(post => (
-              <li key={post.id} className="post-card">
+              <li key={post.post_id} className="post-card">
                 <div className="user-name-container">
                   <img src={post.profile_pic} alt="post author profile" />
                   <Link to={`/users/${post.user_id}`} className="nav-link">
@@ -116,12 +127,14 @@ const Home = () => {
                   <div className="icons-container">
                     <button
                       type="button"
-                      aria-label={post.is_liked ? 'Unlike' : 'Like'}
-                      data-testid="likeIcon"
+                      aria-label={likedPosts[post.post_id] ? 'Unlike' : 'Like'}
+                      data-testid={
+                        likedPosts[post.post_id] ? 'unLikeIcon' : 'likeIcon'
+                      } // Test ID
                       className="post-btn"
-                      onClick={() => handleLikeClick(post.id)}
+                      onClick={() => handleLikeClick(post.post_id)} // Call handleLikeClick on click
                     >
-                      {likedPosts[post.id] ? (
+                      {likedPosts[post.post_id] ? (
                         <FcLike className="card-icon" />
                       ) : (
                         <BsHeart className="card-icon" />
@@ -130,7 +143,7 @@ const Home = () => {
                     <button
                       type="button"
                       aria-label="icons"
-                      data-testid="likeIcon"
+                      data-testid="shareIcon"
                       className="post-btn"
                     >
                       <FaRegComment className="card-icon" />
@@ -138,7 +151,7 @@ const Home = () => {
                     <button
                       type="button"
                       aria-label="icons"
-                      data-testid="likeIcon"
+                      data-testid="commentIcon"
                       className="post-btn"
                     >
                       <BiShareAlt className="card-icon" />
@@ -146,7 +159,14 @@ const Home = () => {
                   </div>
                   <p>{post.likes_count} Likes</p>
                   <p>{post.post_details.caption}</p>
-
+                  <div>
+                    {post.comments.map(comment => (
+                      <p key={comment.user_id}>
+                        <strong>{comment.user_name} </strong>
+                        {comment.comment}
+                      </p>
+                    ))}
+                  </div>
                   <p>{post.created_at}</p>
                 </div>
               </li>
@@ -164,15 +184,13 @@ const Home = () => {
         alt="failure view"
         className="user_story_failure_img"
       />
-      <h1 className="failure_heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure_heading">Something went wrong. Please try again</p>
       <button
         onClick={() => fetchPosts()}
         type="submit"
         className="failure-button"
       >
-        Try Again
+        Try again
       </button>
     </div>
   )
@@ -193,6 +211,7 @@ const Home = () => {
   if (jwtToken === undefined) {
     return <Redirect to="/login" />
   }
+
   return (
     <>
       <Header />

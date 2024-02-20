@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 
+import {BiCamera} from 'react-icons/bi'
 import {BsGrid3X3} from 'react-icons/bs'
 
 import Cookies from 'js-cookie'
@@ -47,47 +48,56 @@ const MyProfile = () => {
     fetchMyProfile()
   }, []) // Empty dependency array means this effect runs once on mount
   const renderSuccessView = () => (
-    <div className="profile-container">
-      <div className="profile-card-container">
-        <div className="profile-info-container">
-          <img
-            src={myProfile.profile_pic}
-            alt="profile"
-            className="profile-pic"
-          />
-          <div className="info">
-            <h1>{myProfile.user_name}</h1>
-            <div className="follower-card">
-              <p>{myProfile.posts_count} Posts</p>
-              <p>{myProfile.followers_count} Followers</p>
-              <p>{myProfile.following_count} Following</p>
+    <>
+      {myProfile && myProfile.length === 0 ? (
+        <div>
+          <BiCamera />
+          <h1>No Posts</h1>
+        </div>
+      ) : (
+        <div className="profile-container">
+          <div className="profile-card-container">
+            <div className="profile-info-container">
+              <img
+                src={myProfile.profile_pic}
+                alt="my profile"
+                className="profile-pic"
+              />
+              <div className="info">
+                <h1>{myProfile.user_name}</h1>
+                <div className="follower-card">
+                  <p>{myProfile.posts_count} Posts</p>
+                  <p>{myProfile.followers_count} Followers</p>
+                  <p>{myProfile.following_count} Following</p>
+                </div>
+                <p>{myProfile.user_id}</p>
+                <p>{myProfile.user_bio}</p>
+              </div>
             </div>
-            <p>{myProfile.user_id}</p>
-            <p>{myProfile.user_bio}</p>
+            <ul className="stories-container">
+              {myProfile.stories.map(each => (
+                <li key={each.id}>
+                  <img src={each.image} alt="my story" />
+                </li>
+              ))}
+            </ul>
+            <hr className="line" />
+            <div className="post-head-card">
+              <BsGrid3X3 />
+              <h1>No Posts</h1>
+            </div>
+
+            <ul className="profile-ul-container">
+              {myProfile.posts.map(each => (
+                <li key={each.id}>
+                  <img src={each.image} alt="my post" />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <ul className="stories-container">
-          {myProfile.stories.map(each => (
-            <li key={each.id}>
-              <img src={each.image} alt="post" />
-            </li>
-          ))}
-        </ul>
-        <hr className="line" />
-        <div className="post-head-card">
-          <BsGrid3X3 />
-          <h1>Posts</h1>
-        </div>
-
-        <ul className="profile-ul-container">
-          {myProfile.posts.map(each => (
-            <li key={each.id}>
-              <img src={each.image} alt="post" />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+      )}
+    </>
   )
 
   const renderFailureView = () => (
@@ -97,15 +107,13 @@ const MyProfile = () => {
         alt="failure view"
         className="user_story_failure_img"
       />
-      <h1 className="failure_heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure_heading">Something went wrong. Please try again</p>
       <button
         onClick={() => fetchMyProfile()}
         type="submit"
         className="failure-button"
       >
-        Try Again
+        Try again
       </button>
     </div>
   )
@@ -117,7 +125,7 @@ const MyProfile = () => {
       case apiStatusConstants.success:
         return renderSuccessView()
       case apiStatusConstants.failure:
-        return renderFailureView()
+        return myProfile === null ? renderFailureView() : null
 
       default:
         return null

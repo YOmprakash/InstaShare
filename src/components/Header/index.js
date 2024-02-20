@@ -6,23 +6,25 @@ import {IoMdMenu} from 'react-icons/io'
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import image from '../Images/image1.jpg'
+import {useSearch} from '../../context/SearchContext'
+
 import './index.css'
 
-const Header = ({onSearchInputChange, history}) => {
+const Header = ({history}) => {
+  const {searchInput, onChangeSearchInput, setSearchPostView} = useSearch()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false) // new state variable
 
   const toggleHamburger = () => {
     setMenuOpen(!menuOpen)
-  }
-  const toggleSearch = () => {
-    setSearchOpen(!searchOpen)
   }
   const onClickLogout = () => {
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
 
+  const onClickSearchIcon = () => {
+    setSearchPostView(true) // Toggle search post view
+  }
   return (
     <nav className="nav-container">
       <div className="desktop-container">
@@ -42,28 +44,21 @@ const Header = ({onSearchInputChange, history}) => {
         </button>
         <ul className={`desktop-ul-container ${menuOpen ? 'open' : ''}`}>
           <li>
-            {!searchOpen ? (
-              <button type="button" onClick={toggleSearch}>
-                search
+            <div className="search-container">
+              <input
+                type="search"
+                placeholder="Search Caption"
+                value={searchInput}
+                onChange={e => onChangeSearchInput(e.target.value)}
+              />
+              <button
+                type="button"
+                data-testid="searchIcon"
+                onClick={onClickSearchIcon}
+              >
+                <FaSearch />
               </button>
-            ) : null}
-
-            {searchOpen && (
-              <div className="search-container">
-                <input
-                  type="search"
-                  placeholder="search caption"
-                  onChange={e => onSearchInputChange(e.target.value)}
-                />
-                <button
-                  type="button"
-                  aria-label="icons"
-                  data-testid="searchIcon"
-                >
-                  <FaSearch />
-                </button>
-              </div>
-            )}
+            </div>
           </li>
           <li>
             <Link className="nav-link" to="/" onClick={toggleHamburger}>

@@ -57,30 +57,26 @@ const UserStories = () => {
       infinite: false,
       speed: 500,
       slidesToShow: 6,
-      slidesToScroll: 3,
-      initialSlide: 0,
+      slidesToScroll: 1,
       responsive: [
         {
           breakpoint: 1024,
           settings: {
-            slidesToShow: 5,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true,
+            slidesToShow: 7,
+            slidesToScroll: 1,
           },
         },
         {
           breakpoint: 600,
           settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            initialSlide: 2,
+            slidesToShow: 6,
+            slidesToScroll: 1,
           },
         },
         {
           breakpoint: 480,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 4,
             slidesToScroll: 1,
           },
         },
@@ -88,16 +84,16 @@ const UserStories = () => {
     }
 
     return (
-      <ul className="slider-container">
+      <ul>
         <Slider {...settings}>
           {storiesList.map(eachStory => (
-            <li key={eachStory.userId} className="story_container">
+            <li key={eachStory.userId} className="story-item">
               <img
                 className="storyImg"
                 alt="user story"
                 src={eachStory.storyUrl}
               />
-              <p className="userName">{eachStory.userName}</p>
+              <p className="story-userName">{eachStory.userName}</p>
             </li>
           ))}
         </Slider>
@@ -138,7 +134,11 @@ const UserStories = () => {
     }
   }
 
-  return <div className="user_stories_container">{renderUserStories()}</div>
+  return (
+    <div className="main-container">
+      <div className="slick-container">{renderUserStories()}</div>
+    </div>
+  )
 }
 
 export default UserStories
