@@ -50,10 +50,10 @@ const MyProfile = () => {
   const renderSuccessView = () => (
     <>
       {myProfile && myProfile.length === 0 ? (
-        <div>
+        <>
           <BiCamera />
           <h1>No Posts</h1>
-        </div>
+        </>
       ) : (
         <div className="profile-container">
           <div className="profile-card-container">
@@ -84,7 +84,7 @@ const MyProfile = () => {
             <hr className="line" />
             <div className="post-head-card">
               <BsGrid3X3 />
-              <h1>No Posts</h1>
+              <h1>Posts</h1>
             </div>
 
             <ul className="profile-ul-container">
@@ -125,8 +125,7 @@ const MyProfile = () => {
       case apiStatusConstants.success:
         return renderSuccessView()
       case apiStatusConstants.failure:
-        return myProfile === null ? renderFailureView() : null
-
+        return renderFailureView()
       default:
         return null
     }

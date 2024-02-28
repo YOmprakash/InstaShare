@@ -1,4 +1,5 @@
 // home
+
 import {useState, useEffect} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import {BsHeart} from 'react-icons/bs'
@@ -22,7 +23,9 @@ const Home = () => {
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [likedPosts, setLikedPosts] = useState({})
+  const [searchError, setSearchError] = useState(false)
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const fetchPosts = async () => {
     try {
@@ -34,23 +37,35 @@ const Home = () => {
         },
         method: 'GET',
       }
-      const apiUrl = 'https://apis.ccbp.in/insta-share/posts'
+
+      let apiUrl = 'https://apis.ccbp.in/insta-share/posts'
+      if (searchQuery) {
+        apiUrl += `?search=${searchQuery}`
+      }
+
       const response = await fetch(apiUrl, options)
 
       if (response.ok) {
         const data = await response.json()
-        console.log(data)
-        setPosts(data.posts)
-        setIsLoading(false)
-        setApiStatus(apiStatusConstants.success)
+        if (data.posts.length === 0) {
+          setSearchError(true)
+          setApiStatus(apiStatusConstants.failure)
+        } else {
+          setPosts(data.posts)
+          setIsLoading(false)
+          setApiStatus(apiStatusConstants.success)
+          setSearchError(false)
+        }
       } else {
         setIsLoading(false)
         setApiStatus(apiStatusConstants.failure)
+        setSearchError(true)
       }
     } catch (error) {
       console.error('Error fetching posts:', error)
       setIsLoading(false)
       setApiStatus(apiStatusConstants.failure)
+      setSearchError(true)
     }
   }
   useEffect(() => {
@@ -101,6 +116,10 @@ const Home = () => {
     } catch (error) {
       console.error('Error updating like status:', error)
     }
+  }
+
+  const handleSearch = searchInput => {
+    setSearchQuery(searchInput)
   }
 
   const renderHomeContent = () => (
@@ -180,11 +199,23 @@ const Home = () => {
   const renderFailureView = () => (
     <div className="failure_view_container">
       <img
-        src="https://res.cloudinary.com/dziwdneks/image/upload/v1675454266/HomeFaillureImg_qz05si.png"
+        src={
+          searchError
+            ? 'https://i.postimg.cc/7PFcBqHF/Group.png'
+            : 'https://res.cloudinary.com/dziwdneks/image/upload/v1675454266/HomeFaillureImg_qz05si.png'
+        }
         alt="failure view"
         className="user_story_failure_img"
       />
-      <p className="failure_heading">Something went wrong. Please try again</p>
+      {searchError ? (
+        <p className="failure_heading">
+          No search results found. Please try again.
+        </p>
+      ) : (
+        <p className="failure_heading">
+          Something went wrong. Please try again
+        </p>
+      )}
       <button
         onClick={() => fetchPosts()}
         type="submit"
@@ -214,7 +245,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header onSearch={handleSearch} />
       <UserStories />
       {renderHome()}
     </>

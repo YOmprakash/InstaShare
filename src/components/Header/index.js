@@ -6,13 +6,20 @@ import {IoMdMenu} from 'react-icons/io'
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import image from '../Images/image1.jpg'
-import {useSearch} from '../../context/SearchContext'
 
 import './index.css'
 
-const Header = ({history}) => {
-  const {searchInput, onChangeSearchInput, setSearchPostView} = useSearch()
+const Header = ({history, onSearch}) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchInput, setSearchInput] = useState('')
+
+  const onChangeSearchInput = event => {
+    setSearchInput(event.target.value)
+  }
+
+  const handleSearch = () => {
+    onSearch(searchInput)
+  }
 
   const toggleHamburger = () => {
     setMenuOpen(!menuOpen)
@@ -22,9 +29,6 @@ const Header = ({history}) => {
     history.replace('/login')
   }
 
-  const onClickSearchIcon = () => {
-    setSearchPostView(true) // Toggle search post view
-  }
   return (
     <nav className="nav-container">
       <div className="desktop-container">
@@ -49,12 +53,12 @@ const Header = ({history}) => {
                 type="search"
                 placeholder="Search Caption"
                 value={searchInput}
-                onChange={e => onChangeSearchInput(e.target.value)}
+                onChange={onChangeSearchInput}
               />
               <button
                 type="button"
                 data-testid="searchIcon"
-                onClick={onClickSearchIcon}
+                onClick={handleSearch}
               >
                 <FaSearch />
               </button>

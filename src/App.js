@@ -1,7 +1,6 @@
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
-import Condition from './components/Condition'
-
+import Home from './components/Home'
 import Login from './components/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import MyProfile from './components/MyProfile'
@@ -14,11 +13,10 @@ const App = () => (
     <SearchProvider>
       <Switch>
         <Route exact path="/login" component={Login} />
-        <ProtectedRoute exact path="/" component={Condition} />
+        <ProtectedRoute exact path="/" component={Home} />
         <ProtectedRoute exact path="/my-profile" component={MyProfile} />
         <ProtectedRoute exact path="/users/:id" component={UserProfile} />
-        <Route path="/bad-path" component={NotFound} />
-        <Redirect to="bad-path" />
+        <Route component={NotFound} />
       </Switch>
     </SearchProvider>
   </>

@@ -117,10 +117,10 @@ const UserProfile = props => {
           </div>
         </div>
       ) : (
-        <div>
+        <>
           <BiCamera />
           <h1>No Posts</h1>
-        </div>
+        </>
       )}
     </>
   )
