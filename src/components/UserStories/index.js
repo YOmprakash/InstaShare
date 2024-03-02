@@ -56,20 +56,20 @@ const UserStories = () => {
       dots: false,
       infinite: false,
       speed: 500,
-      slidesToShow: 6,
+      slidesToShow: 7,
       slidesToScroll: 1,
       responsive: [
         {
-          breakpoint: 1024,
+          breakpoint: 900,
           settings: {
-            slidesToShow: 7,
+            slidesToShow: 6,
             slidesToScroll: 1,
           },
         },
         {
-          breakpoint: 600,
+          breakpoint: 660,
           settings: {
-            slidesToShow: 6,
+            slidesToShow: 5,
             slidesToScroll: 1,
           },
         },

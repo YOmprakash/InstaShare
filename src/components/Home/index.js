@@ -1,5 +1,3 @@
-// home
-
 import {useState, useEffect} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import {BsHeart} from 'react-icons/bs'
@@ -21,11 +19,17 @@ const apiStatusConstants = {
 
 const Home = () => {
   const [posts, setPosts] = useState([])
+  const [searchInput, setSearchInput] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [likedPosts, setLikedPosts] = useState({})
   const [searchError, setSearchError] = useState(false)
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
-  const [searchQuery, setSearchQuery] = useState('')
+
+  const updateSearchQuery = value => {
+    setSearchInput(value)
+
+    console.log(value)
+  }
 
   const fetchPosts = async () => {
     try {
@@ -38,15 +42,14 @@ const Home = () => {
         method: 'GET',
       }
 
-      let apiUrl = 'https://apis.ccbp.in/insta-share/posts'
-      if (searchQuery) {
-        apiUrl += `?search=${searchQuery}`
-      }
+      const apiUrl = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
 
       const response = await fetch(apiUrl, options)
+      console.log(response)
 
       if (response.ok) {
         const data = await response.json()
+        console.log(data.posts)
         if (data.posts.length === 0) {
           setSearchError(true)
           setApiStatus(apiStatusConstants.failure)
@@ -68,6 +71,7 @@ const Home = () => {
       setSearchError(true)
     }
   }
+
   useEffect(() => {
     fetchPosts()
   }, [])
@@ -117,11 +121,6 @@ const Home = () => {
       console.error('Error updating like status:', error)
     }
   }
-
-  const handleSearch = searchInput => {
-    setSearchQuery(searchInput)
-  }
-
   const renderHomeContent = () => (
     <div className="home-container">
       {isLoading ? (
@@ -147,7 +146,7 @@ const Home = () => {
                     <button
                       type="button"
                       aria-label={likedPosts[post.post_id] ? 'Unlike' : 'Like'}
-                      data-testid={
+                      testid={
                         likedPosts[post.post_id] ? 'unLikeIcon' : 'likeIcon'
                       } // Test ID
                       className="post-btn"
@@ -162,7 +161,7 @@ const Home = () => {
                     <button
                       type="button"
                       aria-label="icons"
-                      data-testid="shareIcon"
+                      testid="shareIcon"
                       className="post-btn"
                     >
                       <FaRegComment className="card-icon" />
@@ -170,7 +169,7 @@ const Home = () => {
                     <button
                       type="button"
                       aria-label="icons"
-                      data-testid="commentIcon"
+                      testid="commentIcon"
                       className="post-btn"
                     >
                       <BiShareAlt className="card-icon" />
@@ -204,18 +203,18 @@ const Home = () => {
             ? 'https://i.postimg.cc/7PFcBqHF/Group.png'
             : 'https://res.cloudinary.com/dziwdneks/image/upload/v1675454266/HomeFaillureImg_qz05si.png'
         }
-        alt="failure view"
+        alt={searchError ? 'search not found' : 'failure view'}
         className="user_story_failure_img"
       />
+      {searchError && <h1 className="failure_heading">Search Not Found</h1>}
       {searchError ? (
-        <p className="failure_heading">
-          No search results found. Please try again.
-        </p>
+        <p>Try different keyword or search again</p>
       ) : (
         <p className="failure_heading">
           Something went wrong. Please try again
         </p>
       )}
+
       <button
         onClick={() => fetchPosts()}
         type="submit"
@@ -245,9 +244,19 @@ const Home = () => {
 
   return (
     <>
-      <Header onSearch={handleSearch} />
-      <UserStories />
-      {renderHome()}
+      <Header
+        updateSearchQuery={updateSearchQuery}
+        searchInput={searchInput}
+        fetchPosts={fetchPosts}
+      />
+      {searchInput === '' ? (
+        <>
+          <UserStories />
+          {renderHome()}
+        </>
+      ) : (
+        renderHome()
+      )}
     </>
   )
 }

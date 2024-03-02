@@ -1,24 +1,28 @@
-// Header.js
 import {useState} from 'react'
 import {FaSearch} from 'react-icons/fa'
-import {IoClose} from 'react-icons/io5'
-import {IoMdMenu} from 'react-icons/io'
+
+import {IoIosMenu} from 'react-icons/io'
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import image from '../Images/image1.jpg'
 
 import './index.css'
 
-const Header = ({history, onSearch}) => {
+const Header = ({history, fetchPosts, updateSearchQuery, searchInput}) => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [searchInput, setSearchInput] = useState('')
 
-  const onChangeSearchInput = event => {
-    setSearchInput(event.target.value)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen)
   }
 
-  const handleSearch = () => {
-    onSearch(searchInput)
+  const onSearch = () => {
+    fetchPosts()
+  }
+
+  const onChangeSearchQuery = event => {
+    updateSearchQuery(event.target.value)
   }
 
   const toggleHamburger = () => {
@@ -40,11 +44,7 @@ const Header = ({history, onSearch}) => {
         </Link>
 
         <button type="button" className="menu-icon" onClick={toggleHamburger}>
-          {menuOpen ? (
-            <IoClose size={32} className="icon-x" />
-          ) : (
-            <IoMdMenu size={32} className="menu-icon" />
-          )}
+          <IoIosMenu size={32} />
         </button>
         <ul className={`desktop-ul-container ${menuOpen ? 'open' : ''}`}>
           <li>
@@ -53,12 +53,13 @@ const Header = ({history, onSearch}) => {
                 type="search"
                 placeholder="Search Caption"
                 value={searchInput}
-                onChange={onChangeSearchInput}
+                onChange={onChangeSearchQuery}
               />
               <button
+                className="search-icon"
                 type="button"
-                data-testid="searchIcon"
-                onClick={handleSearch}
+                testid="searchIcon"
+                onClick={onSearch}
               >
                 <FaSearch />
               </button>
@@ -69,6 +70,15 @@ const Header = ({history, onSearch}) => {
               Home
             </Link>
           </li>
+
+          <button
+            className="seach-mobile-btn"
+            type="button"
+            onClick={toggleSearch}
+          >
+            Search
+          </button>
+
           <li>
             <Link
               className="nav-link"
@@ -80,12 +90,18 @@ const Header = ({history, onSearch}) => {
           </li>
 
           <button
-            className="header-button"
+            className="logout-button"
             type="button"
             onClick={onClickLogout}
           >
             Logout
           </button>
+
+          {menuOpen && (
+            <button type="button" onClick={toggleHamburger}>
+              X
+            </button>
+          )}
         </ul>
       </div>
     </nav>

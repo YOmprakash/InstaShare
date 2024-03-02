@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 
-import {BiCamera} from 'react-icons/bi'
 import {BsGrid3X3} from 'react-icons/bs'
+import {BiCamera} from 'react-icons/bi'
 
 import Cookies from 'js-cookie'
 import Header from '../Header'
@@ -17,7 +17,7 @@ const apiStatusConstants = {
 }
 
 const MyProfile = () => {
-  const [myProfile, setMyProfile] = useState(null)
+  const [myProfile, setMyProfile] = useState([])
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
 
   const fetchMyProfile = async () => {
@@ -46,10 +46,10 @@ const MyProfile = () => {
   }
   useEffect(() => {
     fetchMyProfile()
-  }, []) // Empty dependency array means this effect runs once on mount
+  }, [])
   const renderSuccessView = () => (
     <>
-      {myProfile && myProfile.length === 0 ? (
+      {myProfile.length === 0 ? (
         <>
           <BiCamera />
           <h1>No Posts</h1>
@@ -57,6 +57,7 @@ const MyProfile = () => {
       ) : (
         <div className="profile-container">
           <div className="profile-card-container">
+            <p className="mobile-h1">{myProfile.user_name}</p>
             <div className="profile-info-container">
               <img
                 src={myProfile.profile_pic}
@@ -70,9 +71,13 @@ const MyProfile = () => {
                   <p>{myProfile.followers_count} Followers</p>
                   <p>{myProfile.following_count} Following</p>
                 </div>
-                <p>{myProfile.user_id}</p>
-                <p>{myProfile.user_bio}</p>
+                <span>{myProfile.user_name}</span>
+                <p className="bio">{myProfile.user_bio}</p>
               </div>
+            </div>
+            <div className="mobile-info">
+              <h1>{myProfile.user_name}</h1>
+              <p>{myProfile.user_bio}</p>
             </div>
             <ul className="stories-container">
               {myProfile.stories.map(each => (
@@ -89,8 +94,12 @@ const MyProfile = () => {
 
             <ul className="profile-ul-container">
               {myProfile.posts.map(each => (
-                <li key={each.id}>
-                  <img src={each.image} alt="my post" />
+                <li key={each.id} className="list-item-myProfile">
+                  <img
+                    src={each.image}
+                    alt="my post"
+                    className="my-profile-post-img"
+                  />
                 </li>
               ))}
             </ul>

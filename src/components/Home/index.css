@@ -2,6 +2,21 @@ body {
   margin: 0px;
   padding: 0px;
 }
+.light,
+.dark {
+  transition: background-color 0.3s ease, color 0.3s ease; /* Add transition */
+}
+
+.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .home-container {
   min-height: 100vh;
   display: flex;

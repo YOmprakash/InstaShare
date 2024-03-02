@@ -1,12 +1,17 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
 .profile-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 .profile-card-container {
-  width: 90%;
+  width: 70%;
   max-width: 1100px;
   display: flex;
   justify-content: center;
@@ -16,25 +21,55 @@
   display: flex;
   align-items: center;
 }
-.profile-pic {
-  width: 150px;
-  height: 150px;
+.mobile-info {
+  display: none;
 }
-
+.mobile-info h1 {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 32px;
+  color: #262626;
+  margin: 0px;
+}
+.profile-pic {
+  width: 140px;
+  border-radius: 50%;
+}
+span {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 12px;
+  color: #262626;
+  margin-top: 0px;
+}
 .info {
+  text-align: left;
   margin-left: 20px;
+}
+.info h1 {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 32px;
+  color: #262626;
+  margin: 0px;
 }
 .follower-card {
   display: flex;
   align-items: center;
 }
 .follower-card p {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 16px;
+  color: #262626;
   margin-right: 20px;
 }
+
 .stories-container {
   display: flex;
   align-items: center;
   list-style: none;
+  padding-left: 0px;
 }
 .stories-container img {
   width: 86px;
@@ -45,27 +80,79 @@
 }
 .profile-ul-container {
   display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+  padding: 0px;
   list-style: none;
   flex-wrap: wrap;
 }
-.profile-ul-container img {
+.my-profile-post-img {
   width: 100%;
-  max-width: 330px;
-  margin: 10px;
 }
-@media screen and (max-width: 768px) {
-  .profile-ul-container img {
-    max-width: 108px;
-  }
+.list-item-myProfile {
+  width: 32%;
 }
+
 .post-head-card {
   display: flex;
   align-items: center;
+  margin-top: 10px;
 }
 .post-head-card h1 {
-  margin-left: 10px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 24px;
+  color: #262626;
+  margin: 0px 10px;
 }
 .line {
   width: 100%;
   border: 1px solid #dbdbdb;
+}
+.bio {
+  font-size: 16px;
+}
+.mobile-h1 {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .profile-container {
+    margin-top: 0px;
+  }
+
+  .profile-card-container {
+    width: 100%;
+  }
+  .profile-pic {
+    width: 70px;
+  }
+  .info {
+    margin: 0px 10%;
+    width: 90%;
+  }
+
+  .mobile-info {
+    display: block;
+  }
+  .stories-container img {
+    width: 46px;
+  }
+  .profile-pic {
+    width: 88px;
+  }
+  .info h1 {
+    display: none;
+  }
+  .follower-card p {
+    font-size: 12px;
+  }
+  span {
+    display: none;
+  }
+  .bio {
+    display: none;
+  }
+  .mobile-h1 {
+    display: block;
+  }
 }
