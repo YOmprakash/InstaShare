@@ -14,7 +14,7 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-const SearchPost = ({posts, setPosts, apiStatus}) => {
+const SearchPost = ({posts, setPosts, fetchPosts, apiStatus}) => {
   const [likedPosts, setLikedPosts] = useState({})
 
   const handleLikeClick = async postId => {
@@ -73,85 +73,105 @@ const SearchPost = ({posts, setPosts, apiStatus}) => {
   )
 
   const renderHomeContent = () => (
-    <div className="home-container">
-      <div className="home-card-container">
-        <ul className="post-ul-container">
-          {posts.map(post => (
-            <li key={post.post_id} className="post-card">
-              <div className="user-name-container">
-                <img src={post.profile_pic} alt="post author profile" />
-                <Link to={`/users/${post.user_id}`} className="nav-link">
-                  <p>{post.user_name}</p>
-                </Link>
-              </div>
-              <img
-                src={post.post_details.image_url}
-                alt="post"
-                className="post-img"
-              />
-              <div className="card-bottom-container">
-                <div className="icons-container">
-                  <button
-                    type="button"
-                    aria-label={likedPosts[post.post_id] ? 'Unlike' : 'Like'}
-                    data-testid={
-                      likedPosts[post.post_id] ? 'unLikeIcon' : 'likeIcon'
-                    } // Test ID
-                    className="post-btn"
-                    onClick={() => handleLikeClick(post.post_id)} // Call handleLikeClick on click
-                  >
-                    {likedPosts[post.post_id] ? (
-                      <FcLike className="card-icon" />
-                    ) : (
-                      <BsHeart className="card-icon" />
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="icons"
-                    data-testid="shareIcon"
-                    className="post-btn"
-                  >
-                    <FaRegComment className="card-icon" />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="icons"
-                    data-testid="commentIcon"
-                    className="post-btn"
-                  >
-                    <BiShareAlt className="card-icon" />
-                  </button>
-                </div>
-                <p>{post.likes_count} Likes</p>
-                <p>{post.post_details.caption}</p>
-                <div>
-                  {post.comments.map(comment => (
-                    <p key={comment.user_id}>
-                      <strong>{comment.user_name} </strong>
-                      {comment.comment}
-                    </p>
-                  ))}
-                </div>
-                <p>{post.created_at}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <>
+      {posts.length === 0 ? (
+        <div>
+          <img
+            src="https://i.postimg.cc/7PFcBqHF/Group.png"
+            alt="search not found"
+            className="user_story_failure_img"
+          />
+          <h1 className="failure_heading">Search Not Found</h1>
+          <p>Try different keyword or search again</p>
+        </div>
+      ) : (
+        <div className="home-container">
+          <div className="home-card-container">
+            <h1>Search Results</h1>
+            <ul className="post-ul-container">
+              {posts.map(post => (
+                <li key={post.post_id} className="post-card">
+                  <div className="user-name-container">
+                    <img src={post.profile_pic} alt="post author profile" />
+                    <Link to={`/users/${post.user_id}`} className="nav-link">
+                      <p>{post.user_name}</p>
+                    </Link>
+                  </div>
+                  <img
+                    src={post.post_details.image_url}
+                    alt="post"
+                    className="post-img"
+                  />
+                  <div className="card-bottom-container">
+                    <div className="icons-container">
+                      <button
+                        type="button"
+                        testid={
+                          likedPosts[post.post_id] ? 'unLikeIcon' : 'likeIcon'
+                        } // Test ID
+                        className="post-btn"
+                        onClick={() => handleLikeClick(post.post_id)}
+                      >
+                        {likedPosts[post.post_id] ? (
+                          <FcLike className="card-icon" />
+                        ) : (
+                          <BsHeart className="card-icon" />
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        testid="shareIcon"
+                        className="post-btn"
+                      >
+                        <FaRegComment className="card-icon" />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="icons"
+                        testid="commentIcon"
+                        className="post-btn"
+                      >
+                        <BiShareAlt className="card-icon" />
+                      </button>
+                    </div>
+                    <p>{post.likes_count} Likes</p>
+                    <p>{post.post_details.caption}</p>
+                    <div>
+                      {post.comments.map(comment => (
+                        <p key={comment.user_id}>
+                          <strong>{comment.user_name} </strong>
+                          {comment.comment}
+                        </p>
+                      ))}
+                    </div>
+                    <p>{post.created_at}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </>
   )
 
   const renderFailureView = () => (
     <div className="failure_view_container">
       <img
-        src="https://i.postimg.cc/7PFcBqHF/Group.png"
-        alt="search not found"
+        src="https://res.cloudinary.com/dziwdneks/image/upload/v1675454266/HomeFaillureImg_qz05si.png"
+        alt="failure view"
         className="user_story_failure_img"
       />
-      <h1 className="failure_heading">Search Not Found</h1>
 
-      <p>Try different keyword or search again</p>
+      <p className="failure_heading">Something went wrong. Please try again</p>
+
+      <button
+        onClick={() => fetchPosts()}
+        type="submit"
+        className="failure-button"
+      >
+        Try again
+      </button>
     </div>
   )
 
