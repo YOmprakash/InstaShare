@@ -1,14 +1,21 @@
 import {useState} from 'react'
 import {FaSearch} from 'react-icons/fa'
 
-import {IoIosMenu} from 'react-icons/io'
+import {IoIosMenu, IoIosCloseCircle} from 'react-icons/io'
+
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import image from '../Images/image1.jpg'
 
 import './index.css'
 
-const Header = ({history, fetchPosts, updateSearchQuery, searchInput}) => {
+const Header = ({
+  history,
+  setClick,
+  fetchPosts,
+  updateSearchQuery,
+  searchInput,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -18,6 +25,7 @@ const Header = ({history, fetchPosts, updateSearchQuery, searchInput}) => {
   }
 
   const onSearch = () => {
+    setClick(true)
     fetchPosts()
   }
 
@@ -34,19 +42,74 @@ const Header = ({history, fetchPosts, updateSearchQuery, searchInput}) => {
   }
 
   return (
-    <nav className="nav-container">
-      <div className="desktop-container">
-        <Link to="/" className="nav-link">
-          <div className="header-logo-container">
-            <img src={image} alt="website logo" className="logo" />
-            <h1>Insta Share</h1>
-          </div>
-        </Link>
+    <nav className="navbar">
+      <div className="nav-container">
+        <div className="nav-content">
+          <Link to="/" className="nav-link">
+            <div className="header-logo-container">
+              <img src={image} alt="website logo" className="logo" />
+              <h1>Insta Share</h1>
+            </div>
+          </Link>
 
-        <button type="button" className="menu-icon" onClick={toggleHamburger}>
-          <IoIosMenu size={32} />
-        </button>
-        <ul className={`desktop-ul-container ${menuOpen ? 'open' : ''}`}>
+          <button type="button" className="menu-icon" onClick={toggleHamburger}>
+            <IoIosMenu size={32} />
+          </button>
+        </div>
+        {menuOpen && (
+          <ul className="nav-ul-container mobile">
+            <li>
+              <div className="search-container">
+                <input
+                  type="search"
+                  placeholder="Search Caption"
+                  value={searchInput}
+                  onChange={onChangeSearchQuery}
+                />
+                <button
+                  className="search-icon"
+                  type="button"
+                  testid="searchIcon"
+                  onClick={onSearch}
+                >
+                  <FaSearch />
+                </button>
+              </div>
+            </li>
+            <li>
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+            <li>
+              <button
+                type="button"
+                className="mobile-search-btn"
+                onClick={toggleSearch}
+              >
+                Search
+              </button>
+            </li>
+
+            <li>
+              <Link className="nav-link" to="/my-profile">
+                Profile
+              </Link>
+            </li>
+
+            <button
+              className="logout-button"
+              type="button"
+              onClick={onClickLogout}
+            >
+              Logout
+            </button>
+            <button type="button" onClick={toggleHamburger}>
+              <IoIosCloseCircle />
+            </button>
+          </ul>
+        )}
+        <ul className="nav-ul-container desktop">
           <li>
             <div className="search-container">
               <input
@@ -61,30 +124,27 @@ const Header = ({history, fetchPosts, updateSearchQuery, searchInput}) => {
                 testid="searchIcon"
                 onClick={onSearch}
               >
-                <FaSearch />
+                <FaSearch color="#ffff" />
               </button>
             </div>
           </li>
           <li>
-            <Link className="nav-link" to="/" onClick={toggleHamburger}>
+            <Link className="nav-link" to="/">
               Home
             </Link>
           </li>
-
-          <button
-            className="seach-mobile-btn"
-            type="button"
-            onClick={toggleSearch}
-          >
-            Search
-          </button>
+          <li>
+            <button
+              type="button"
+              className="mobile-search-btn"
+              onClick={toggleSearch}
+            >
+              Search
+            </button>
+          </li>
 
           <li>
-            <Link
-              className="nav-link"
-              to="/my-profile"
-              onClick={toggleHamburger}
-            >
+            <Link className="nav-link" to="/my-profile">
               Profile
             </Link>
           </li>
@@ -96,13 +156,27 @@ const Header = ({history, fetchPosts, updateSearchQuery, searchInput}) => {
           >
             Logout
           </button>
-
-          {menuOpen && (
-            <button type="button" onClick={toggleHamburger}>
-              X
-            </button>
-          )}
         </ul>
+
+        {isSearchOpen && menuOpen && (
+          <div className="mob-search-container">
+            <input
+              type="search"
+              placeholder="Search Caption"
+              value={searchInput}
+              onChange={onChangeSearchQuery}
+            />
+
+            <button
+              className="mob-search-icon"
+              type="button"
+             testid="searchIcon"
+              onClick={onSearch}
+            >
+              <FaSearch color="#fff" />
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   )

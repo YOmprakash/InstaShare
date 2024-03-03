@@ -42,8 +42,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  margin-top: 50px;
   flex-direction: column;
+}
+.user_story_failure_img {
+  width: 100%;
+  max-width: 300px;
 }
 .post-ul-container {
   display: flex;

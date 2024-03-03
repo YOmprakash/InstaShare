@@ -93,13 +93,13 @@
   color: #ff0b37;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
   .desktop-image {
     display: none;
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .login-card-container {
     flex-direction: row;
     justify-content: space-around;

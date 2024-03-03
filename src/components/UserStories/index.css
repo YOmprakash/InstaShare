@@ -5,15 +5,15 @@
 
 .main-container {
   display: flex;
+  width: 90%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
 }
 .slick-container {
   width: 80%;
   max-width: 1000px;
-  margin: 10px 0px;
+  margin: 10px 10px;
 }
 @media screen and (max-width: 768px) {
   .slick-container {
