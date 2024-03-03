@@ -155,6 +155,7 @@ const SearchPost = ({posts, setPosts, fetchPosts, apiStatus}) => {
     </>
   )
 
+  const onRetry = () => fetchPosts()
   const renderFailureView = () => (
     <div className="failure_view_container">
       <img
@@ -165,11 +166,7 @@ const SearchPost = ({posts, setPosts, fetchPosts, apiStatus}) => {
 
       <p className="failure_heading">Something went wrong. Please try again</p>
 
-      <button
-        onClick={() => fetchPosts()}
-        type="submit"
-        className="failure-button"
-      >
+      <button onClick={onRetry} type="submit" className="failure-button">
         Try again
       </button>
     </div>

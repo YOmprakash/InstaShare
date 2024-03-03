@@ -51,13 +51,8 @@ const Home = () => {
       if (response.ok) {
         const data = await response.json()
         console.log(data.posts)
-        if (data.posts.length === 0) {
-          setApiStatus(apiStatusConstants.failure)
-        } else {
-          setPosts(data.posts)
-
-          setApiStatus(apiStatusConstants.success)
-        }
+        setPosts(data.posts)
+        setApiStatus(apiStatusConstants.success)
       } else {
         setApiStatus(apiStatusConstants.failure)
       }

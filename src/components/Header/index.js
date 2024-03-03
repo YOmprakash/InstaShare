@@ -170,7 +170,7 @@ const Header = ({
             <button
               className="mob-search-icon"
               type="button"
-             testid="searchIcon"
+              testid="searchIcon"
               onClick={onSearch}
             >
               <FaSearch color="#fff" />
