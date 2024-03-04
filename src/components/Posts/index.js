@@ -6,6 +6,7 @@ import {FaRegComment} from 'react-icons/fa'
 import {BiShareAlt} from 'react-icons/bi'
 import Cookies from 'js-cookie'
 import Loader from '../Loader'
+import './index.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -209,7 +210,12 @@ const Posts = () => {
     }
   }
 
-  return renderHome()
+  return (
+    <>
+      <hr />
+      {renderHome()}
+    </>
+  )
 }
 
 export default Posts

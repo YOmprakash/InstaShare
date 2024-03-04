@@ -36,12 +36,15 @@ const UserProfile = props => {
         `https://apis.ccbp.in/insta-share/users/${id}`,
         options,
       )
+      if (response.ok) {
+        const data = await response.json()
+        console.log(data)
+        setMyProfile(data.user_details)
 
-      const data = await response.json()
-      console.log(data)
-      setMyProfile(data.user_details)
-
-      setApiStatus(apiStatusConstants.success)
+        setApiStatus(apiStatusConstants.success)
+      } else {
+        setApiStatus(apiStatusConstants.failure)
+      }
     } catch (error) {
       console.error('Error fetching my profile:', error)
 
@@ -60,9 +63,7 @@ const UserProfile = props => {
         alt="failure view"
         className="user_story_failure_img"
       />
-      <h1 className="failure_heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure_heading">Something went wrong. Please try again</p>
       <button
         onClick={() => fetchUserProfile()}
         type="submit"

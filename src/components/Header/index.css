@@ -21,30 +21,29 @@
 
 .header-logo-container {
   display: flex;
-  margin-left: 10px;
+  margin-left: 24px;
   align-items: center;
 }
 
 .logo {
   width: 55px;
+  height: 28px;
 }
 
 .header-logo-container h1 {
   font-family: Roboto;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 24px;
-  padding-left: 10px;
+  text-align: left;
+  margin-left: 8px;
 }
 
 .search-container {
   border: 1px solid #dbdbdb;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  height: 30px;
-  padding: 10px;
-  max-width: 300px;
+  width: 214px;
+  height: 28px;
+
+  border-radius: 3px;
   display: none;
 }
 
@@ -71,6 +70,7 @@
   list-style: none;
   margin-left: 0px;
   max-width: 500px;
+  margin-right: 20px;
 }
 .nav-ul-container li {
   margin-right: 10px;
@@ -92,6 +92,8 @@
   background-color: transparent;
   border: none;
   outline: none;
+  margin-right: 3px;
+  color: #262626;
 }
 
 .nav-link {
@@ -139,6 +141,9 @@
 }
 
 @media screen and (min-width: 768px) {
+  .navbar {
+    height: 64px;
+  }
   .mobile-search-btn {
     display: none;
   }

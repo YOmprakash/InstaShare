@@ -1,21 +1,26 @@
 body {
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;
 }
 
 .profile-container {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  align-items: center;
+  margin-top: 10px;
 }
 .profile-card-container {
-  width: 70%;
-  max-width: 1100px;
+  width: 80%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+.info-card {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0px 5%;
 }
 .profile-info-container {
   display: flex;
@@ -24,23 +29,46 @@ body {
 .mobile-info {
   display: none;
 }
-.mobile-info h1 {
-  font-family: 'Roboto';
+.mobile-h1 {
+  font-family: Roboto;
+  font-size: 16px;
   font-weight: 300;
-  font-size: 32px;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
   color: #262626;
-  margin: 0px;
+}
+.mobile-info h1 {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: #262626;
+  margin-top: 10px;
+}
+.mobile-info p {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #262626;
 }
 .profile-pic {
-  width: 140px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
 }
 span {
-  font-family: 'Roboto';
-  font-weight: 400;
-  font-size: 12px;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
   color: #262626;
-  margin-top: 0px;
 }
 .info {
   text-align: left;
@@ -56,6 +84,7 @@ span {
 .follower-card {
   display: flex;
   align-items: center;
+  text-align: center;
 }
 .follower-card p {
   font-family: 'Roboto';
@@ -88,6 +117,8 @@ span {
 }
 .my-profile-post-img {
   width: 100%;
+  max-width: 330px;
+  max-height: 330px;
 }
 .list-item-myProfile {
   width: 32%;
@@ -96,7 +127,7 @@ span {
 .post-head-card {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-left: 0px;
 }
 .post-head-card h1 {
   font-family: 'Roboto';
@@ -110,21 +141,24 @@ span {
   border: 1px solid #dbdbdb;
 }
 .bio {
+  font-family: Roboto;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #262626;
 }
 .mobile-h1 {
   display: none;
 }
 @media screen and (max-width: 768px) {
-  .profile-container {
-    margin-top: 0px;
-  }
-
   .profile-card-container {
     width: 100%;
   }
   .profile-pic {
-    width: 70px;
+    width: 96px;
+    height: 96px;
   }
   .info {
     margin: 0px 10%;
@@ -135,11 +169,13 @@ span {
     display: block;
   }
   .stories-container img {
-    width: 46px;
+    width: 64px;
+    border: 1px solid #c7c7cc;
   }
-  .profile-pic {
-    width: 88px;
+  hr {
+    border: 0.5px solid #c6c6c8;
   }
+
   .info h1 {
     display: none;
   }
@@ -154,5 +190,11 @@ span {
   }
   .mobile-h1 {
     display: block;
+  }
+  .post-head-card {
+    margin: 10px 24px;
+  }
+  .post-head-card h1 {
+    font-size: 14px;
   }
 }
