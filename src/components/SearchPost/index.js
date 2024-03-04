@@ -6,6 +6,7 @@ import {FaRegComment} from 'react-icons/fa'
 import {BiShareAlt} from 'react-icons/bi'
 import Cookies from 'js-cookie'
 import Loader from '../Loader'
+import './index.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -63,7 +64,7 @@ const SearchPost = ({posts, setPosts, fetchPosts, apiStatus}) => {
     }
   }
   const renderInitialView = () => (
-    <div className="user-profile-loader-container">
+    <div className="user-profile-initial-container">
       <img
         alt="initial "
         src="https://res.cloudinary.com/aneesmon/image/upload/v1649495550/Insta_Share/search-initial_oyoblm.png"
@@ -75,7 +76,7 @@ const SearchPost = ({posts, setPosts, fetchPosts, apiStatus}) => {
   const renderHomeContent = () => (
     <>
       {posts.length === 0 ? (
-        <div>
+        <div className="initial-search-results">
           <img
             src="https://i.postimg.cc/7PFcBqHF/Group.png"
             alt="search not found"
@@ -120,7 +121,7 @@ const SearchPost = ({posts, setPosts, fetchPosts, apiStatus}) => {
                       </button>
                       <button
                         type="button"
-                        testid="shareIcon"
+                        data-testid="shareIcon"
                         className="post-btn"
                       >
                         <FaRegComment className="card-icon" />

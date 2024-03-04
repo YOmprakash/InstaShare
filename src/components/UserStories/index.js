@@ -93,7 +93,9 @@ const UserStories = () => {
                 alt="user story"
                 src={eachStory.storyUrl}
               />
-              <p className="story-userName">{eachStory.userName}</p>
+              <p className="story-userName marquee">
+                <span>{eachStory.userName}</span>
+              </p>
             </li>
           ))}
         </Slider>

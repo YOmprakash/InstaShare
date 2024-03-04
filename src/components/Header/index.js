@@ -105,7 +105,7 @@ const Header = ({
               Logout
             </button>
             <button type="button" onClick={toggleHamburger}>
-              <IoIosCloseCircle />
+              <IoIosCloseCircle size={24} />
             </button>
           </ul>
         )}
@@ -124,7 +124,7 @@ const Header = ({
                 testid="searchIcon"
                 onClick={onSearch}
               >
-                <FaSearch color="#ffff" />
+                <FaSearch color="#989898" />
               </button>
             </div>
           </li>

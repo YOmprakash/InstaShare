@@ -32,6 +32,9 @@
     width: 80px;
     border-radius: 55px;
   }
+  .main-container {
+    width: 100%;
+  }
 }
 
 .failure-view-container {
@@ -40,4 +43,53 @@
   justify-content: center;
   flex-direction: column;
   height: auto;
+}
+.story-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.story-userName {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 10px;
+  color: #262626;
+  margin: 0px;
+  text-align: center;
+}
+
+.marquee {
+  width: 50px;
+  margin: 0 15px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.marquee span {
+  display: inline-block;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 5s linear infinite;
+  animation-play-state: paused;
+}
+
+.marquee span:hover {
+  animation-play-state: running;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-70%, 0);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .marquee {
+    width: 60px;
+  }
 }

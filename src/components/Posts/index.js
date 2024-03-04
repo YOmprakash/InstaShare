@@ -113,12 +113,14 @@ const Posts = () => {
         <ul className="post-ul-container">
           {posts.map(post => (
             <li key={post.post_id} className="post-card">
-              <div className="user-name-container">
-                <img src={post.profile_pic} alt="post author profile" />
-                <Link to={`/users/${post.user_id}`} className="nav-link">
+              <Link to={`/users/${post.user_id}`} className="nav-link">
+                <div className="user-name-container">
+                  <img src={post.profile_pic} alt="post author profile" />
+
                   <p>{post.user_name}</p>
-                </Link>
-              </div>
+                </div>
+              </Link>
+
               <img
                 src={post.post_details.image_url}
                 alt="post"
