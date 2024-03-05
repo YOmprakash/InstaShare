@@ -69,7 +69,7 @@ const Header = ({
                 <button
                   className="search-icon"
                   type="button"
-                  testid="searchIcon"
+                  data-testid="searchIcon"
                   onClick={onSearch}
                 >
                   <FaSearch />
@@ -104,7 +104,7 @@ const Header = ({
             >
               Logout
             </button>
-            <button type="button" onClick={toggleHamburger}>
+            <button type="button" onClick={toggleHamburger} className="close">
               <IoIosCloseCircle size={24} />
             </button>
           </ul>
@@ -121,7 +121,7 @@ const Header = ({
               <button
                 className="search-icon"
                 type="button"
-                testid="searchIcon"
+                data-testid="searchIcon"
                 onClick={onSearch}
               >
                 <FaSearch color="#989898" />
@@ -170,7 +170,7 @@ const Header = ({
             <button
               className="mob-search-icon"
               type="button"
-              testid="searchIcon"
+              data-testid="searchIcon"
               onClick={onSearch}
             >
               <FaSearch color="#fff" />

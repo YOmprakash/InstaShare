@@ -1,16 +1,10 @@
 import {useState, useEffect} from 'react'
-import {Link, Redirect} from 'react-router-dom'
-import {BsHeart} from 'react-icons/bs'
-import {FcLike} from 'react-icons/fc'
-import {FaRegComment} from 'react-icons/fa'
-import {BiShareAlt} from 'react-icons/bi'
+import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
-import Loader from '../Loader'
 import Header from '../Header'
 import UserStories from '../UserStories'
 import Posts from '../Posts'
 import SearchPost from '../SearchPost'
-import './index.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',

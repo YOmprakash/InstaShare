@@ -1,12 +1,10 @@
 import {useState, useEffect} from 'react'
 import {withRouter} from 'react-router-dom'
 
-import {BsGrid3X3} from 'react-icons/bs'
-import {BiCamera} from 'react-icons/bi'
-
 import Cookies from 'js-cookie'
 import Header from '../Header'
 import Loader from '../Loader'
+import Profile from '../Profile'
 import './index.css'
 
 const apiStatusConstants = {
@@ -74,58 +72,7 @@ const UserProfile = props => {
     </div>
   )
 
-  const renderSuccessView = () => (
-    <>
-      {myProfile.posts_count > 0 ? (
-        <div className="user-profile-container">
-          <div className="user-profile-card-container">
-            <div className="user-profile-info-container">
-              <img
-                className="user-profile-pic"
-                src={myProfile.profile_pic}
-                alt="user profile"
-              />
-              <div className="user-info">
-                <h1>{myProfile.user_name}</h1>
-                <div className="user-follower-card">
-                  <p>{myProfile.followers_count}</p>
-                  <p>{myProfile.posts_count}</p>
-                  <p>{myProfile.following_count}</p>
-                </div>
-                <p>{myProfile.user_id}</p>
-                <p>{myProfile.user_bio}</p>
-              </div>
-            </div>
-            <ul className="user-stories-container">
-              {myProfile.stories.map(each => (
-                <li key={each.id}>
-                  <img src={each.image} alt="user story" />
-                </li>
-              ))}
-            </ul>
-            <div>
-              <BsGrid3X3 />
-              <h1>Posts</h1>
-            </div>
-
-            <ul className="user-post-container">
-              {myProfile.posts.map(each => (
-                <li key={each.id}>
-                  <img src={each.image} alt="user post" />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <>
-          <BiCamera />
-          <h1>No Posts</h1>
-        </>
-      )}
-    </>
-  )
-
+  const renderSuccessView = () => <Profile myProfile={myProfile} />
   const renderUserProfile = () => {
     switch (apiStatus) {
       case apiStatusConstants.inProgress:
