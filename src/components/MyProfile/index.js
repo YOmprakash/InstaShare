@@ -49,7 +49,7 @@ const MyProfile = () => {
   useEffect(() => {
     fetchMyProfile()
   }, {})
-  const renderSuccessView = () => <Profile myProfile={myProfile} />
+  const renderSuccessView = () => <Profile myProfile={myProfile} owner="my" />
 
   const renderFailureView = () => (
     <div className="failure-view-container">

@@ -72,7 +72,7 @@ const UserProfile = props => {
     </div>
   )
 
-  const renderSuccessView = () => <Profile myProfile={myProfile} />
+  const renderSuccessView = () => <Profile myProfile={myProfile} owner="user" />
   const renderUserProfile = () => {
     switch (apiStatus) {
       case apiStatusConstants.inProgress:
