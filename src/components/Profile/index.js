@@ -16,11 +16,18 @@ const Profile = ({myProfile, owner}) => (
           <div className="info">
             <h1>{myProfile.user_name}</h1>
             <div className="follower-card">
-              <p>{myProfile.posts_count} Posts</p>
-              <p>{myProfile.followers_count} Followers</p>
-              <p>{myProfile.following_count} Following</p>
+              <h1>
+                {myProfile.posts_count} <p>Posts</p>
+              </h1>
+              <h1>
+                {myProfile.followers_count}
+                <p>Followers</p>
+              </h1>
+              <h1>
+                {myProfile.following_count} <p>Following</p>
+              </h1>
             </div>
-            <span>{myProfile.user_name}</span>
+            <p>{myProfile.user_id}</p>
             <p className="bio">{myProfile.user_bio}</p>
           </div>
         </div>
