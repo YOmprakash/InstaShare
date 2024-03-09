@@ -1,73 +1,118 @@
+// index.js
+
+import React from 'react'
+
 import {BsGrid3X3} from 'react-icons/bs'
 import {BiCamera} from 'react-icons/bi'
+
 import './index.css'
 
-const Profile = ({myProfile, owner}) => (
-  <div className="profile-container">
-    <div className="profile-card-container">
-      <div className="info-card">
-        <h1 className="mobile-h1">{myProfile.user_name}</h1>
-        <div className="profile-info-container">
-          <img
-            src={myProfile.profile_pic}
-            alt={`${owner} profile`}
-            className="profile-pic"
-          />
-          <div className="info">
-            <h1>{myProfile.user_name}</h1>
-            <div className="follower-card">
-              <h1>
-                {myProfile.posts_count} <p>Posts</p>
-              </h1>
-              <h1>
-                {myProfile.followers_count}
-                <p>Followers</p>
-              </h1>
-              <h1>
-                {myProfile.following_count} <p>Following</p>
-              </h1>
+const Profile = ({myProfile, owner}) => {
+  const renderStories = () => {
+    if (myProfile.stories.length !== 0) {
+      return (
+        <ul className="up-stories-container">
+          {myProfile.stories.map(eachItem => {
+            const {id, image} = eachItem
+            return (
+              <li key={id} className="up-story-item">
+                <img
+                  alt={`${owner} story`}
+                  src={image}
+                  className="up-story-image"
+                />
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
+    return null
+  }
+
+  const renderPosts = () => {
+    if (myProfile.posts.length !== 0) {
+      return (
+        <ul className="up-posts-container">
+          {myProfile.posts.map(eachItem => {
+            const {id, image} = eachItem
+            return (
+              <li key={id} className="up-post-container">
+                <img
+                  alt={`${owner} post`}
+                  src={image}
+                  className="up-post-image"
+                />
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
+    return (
+      <div className="up-no-posts-container">
+        <div className="up-no-posts-icon-container">
+          <BiCamera className="up-no-posts-icon" />
+        </div>
+        <h1 className="up-no-posts-message">No Posts Yet</h1>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className="up-container">
+        <div className="up-header">
+          <div className="up-info-container">
+            <img
+              src={myProfile.profile_pic}
+              alt={`${owner} profile`}
+              className="up-avatar-lg"
+            />
+
+            <div>
+              <h1 className="up-name">{myProfile.user_name}</h1>
+              <div className="up-avatar-counts-container">
+                <img
+                  src={myProfile.profile_pic}
+                  alt={`${owner} profile`}
+                  className="up-avatar-sm"
+                />
+                <ul className="up-counts-container">
+                  <li className="up-count-item">
+                    <h1 className="up-count-value">{myProfile.posts_count}</h1>
+                    <p className="up-count-label">posts</p>
+                  </li>
+                  <li className="up-count-item">
+                    <h1 className="up-count-value">
+                      {myProfile.followers_count}
+                    </h1>
+                    <p className="up-count-label">followers</p>
+                  </li>
+                  <li className="up-count-item">
+                    <h1 className="up-count-value">
+                      {myProfile.following_count}
+                    </h1>
+                    <p className="up-count-label">following</p>
+                  </li>
+                </ul>
+              </div>
+              <p className="up-username">{myProfile.user_id}</p>
+              <p className="up-bio">{myProfile.user_bio}</p>
             </div>
-            <p>{myProfile.user_id}</p>
-            <p className="bio">{myProfile.user_bio}</p>
           </div>
+
+          {renderStories()}
         </div>
-        <div className="mobile-info">
-          <h1>{myProfile.user_name}</h1>
-          <p>{myProfile.user_bio}</p>
+        <hr className="up-horizontal-rule" />
+        <div className="up-tab">
+          <BsGrid3X3 className="up-tab-icon" />
+          <h1 className="up-tab-label">Posts</h1>
         </div>
-        <ul className="stories-container">
-          {myProfile.stories.map(each => (
-            <li key={each.id}>
-              <img src={each.image} alt={`${owner} story`} />
-            </li>
-          ))}
-        </ul>
+        {renderPosts()}
       </div>
-      <hr className="line" />
-      <div className="post-head-card">
-        <BsGrid3X3 color="#262626" height={14} width={14} />
-        <h1>Posts</h1>
-      </div>
-      {myProfile.posts.length > 0 ? (
-        <ul className="profile-ul-container">
-          {myProfile.posts.map(each => (
-            <li key={each.id} className="list-item-myProfile">
-              <img
-                src={each.image}
-                alt={`${owner} post`}
-                className="my-profile-post-img"
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <>
-          <BiCamera />
-          <h1>No Posts</h1>
-        </>
-      )}
-    </div>
-  </div>
-)
+    </>
+  )
+}
 
 export default Profile
