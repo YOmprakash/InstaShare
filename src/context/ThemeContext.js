@@ -6,12 +6,12 @@ const ThemeContext = createContext()
 const ThemeProvider = ({children}) => {
   const [darkMode, setDarkMode] = useState(false)
 
-  const toggleDarkMode = () => {
+  const toggleTheme = () => {
     setDarkMode(prevMode => !prevMode)
   }
 
   return (
-    <ThemeContext.Provider value={{darkMode, toggleDarkMode}}>
+    <ThemeContext.Provider value={{darkMode, toggleTheme}}>
       {children}
     </ThemeContext.Provider>
   )

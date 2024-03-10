@@ -1,9 +1,11 @@
 /* index.css */
 
-/* UpContainer styles */
 .up-container {
-  margin-top: 15px;
+  margin-top: 20px;
   padding-bottom: 30px;
+}
+.up-tab-icon {
+  margin-right: 10px;
 }
 
 @media screen and (min-width: 768px) {
@@ -32,6 +34,7 @@
   }
 }
 
+.up-tab-icon
 /* UpAvatarLg styles */
 .up-avatar-lg {
   display: none;

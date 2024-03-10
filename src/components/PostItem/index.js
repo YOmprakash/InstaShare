@@ -80,7 +80,7 @@ const PostItem = ({posts, setPosts}) => {
                   <button
                     type="button"
                     aria-label={likedPosts[post.post_id] ? 'Unlike' : 'Like'}
-                    testid={
+                    data-testid={
                       likedPosts[post.post_id] ? 'unLikeIcon' : 'likeIcon'
                     } // Test ID
                     className="post-btn"
@@ -95,7 +95,7 @@ const PostItem = ({posts, setPosts}) => {
                   <button
                     type="button"
                     aria-label="icons"
-                    testid="shareIcon"
+                    data-testid="shareIcon"
                     className="post-btn"
                   >
                     <FaRegComment className="card-icon" />
@@ -103,7 +103,7 @@ const PostItem = ({posts, setPosts}) => {
                   <button
                     type="button"
                     aria-label="icons"
-                    testid="commentIcon"
+                    data-testid="commentIcon"
                     className="post-btn"
                   >
                     <BiShareAlt className="card-icon" />

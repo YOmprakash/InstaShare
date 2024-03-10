@@ -2,14 +2,20 @@
 .navbar {
   display: flex;
   justify-content: center;
-  padding: 10px;
+
   background-color: #ffffff;
+  border-bottom: 1px solid #c6c6c8;
 }
 .nav-container {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+
   width: 100%;
+}
+.darkMode {
+  color: #ffffff;
+  background-color: #303030;
 }
 .nav-content {
   width: 100%;
@@ -36,6 +42,12 @@
   text-align: left;
   margin-left: 8px;
 }
+.themeBtn {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
 
 .search-container {
   border: 1px solid #dbdbdb;
@@ -52,7 +64,7 @@
   flex: 1;
   outline: none;
   color: #dbdbdb;
-
+  width: auto;
   text-decoration: none;
 }
 
@@ -64,6 +76,7 @@
   margin-left: 6px;
   width: 40px;
   height: 27px;
+  cursor: pointer;
 }
 
 .nav-ul-container {
@@ -71,7 +84,7 @@
   justify-content: space-between;
   align-items: center;
   list-style: none;
-  padding-left: 0px;
+  padding: 0px;
 }
 .nav-ul-container li {
   font-family: Roboto;
@@ -80,6 +93,7 @@
   line-height: 18px;
   letter-spacing: 0em;
   text-align: left;
+
   color: #262626;
 }
 .close {
@@ -90,10 +104,10 @@
 }
 
 .logout-button {
-  width: 86px;
-  height: 32px;
+  padding: 7px 25px;
   border-radius: 4px;
   background: #4094ef;
+  text-align: center;
   outline: none;
   cursor: pointer;
   border: none;
@@ -163,7 +177,9 @@
 @media screen and (min-width: 768px) {
   .navbar {
     height: 64px;
-    border-bottom: 1px solid #c6c6c8;
+  }
+  .nav-container {
+    margin: 0px 10%;
   }
   .mobile-search-btn {
     display: none;
