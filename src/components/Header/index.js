@@ -30,7 +30,7 @@ const Header = ({
   }
 
   const onChangeSearchQuery = event => {
-    updateSearchQuery(event.target.value)
+    updateSearchQuery(event.target.value.toLowerCase())
   }
 
   const toggleHamburger = () => {
